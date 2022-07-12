@@ -1,1 +1,9 @@
-terraform.tfvars
+.terraform
+.terraform.lock.hcl
+.tflint.hcl
+orchestrator
+output.json
+recos.txt
+tagsID.txt
+terraform.tfstate
+terraform.tfstate.backup

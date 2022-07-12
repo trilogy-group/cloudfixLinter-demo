@@ -10,11 +10,11 @@ resource "aws_instance" "showcase-1" {
   }
 }
 
-module "server-1" {
-  source            = ".//module-1"
-  web_instance_type = "t2.micro"
-}
-
-module "server-2" {
-  source = ".//module-2"
+resource "aws_ebs_volume" "example" {
+  availability_zone = "us-east-1a"
+  size              = 1
+  type              = "gp2"
+  tags = {
+    yor_trace = "9001"
+  }
 }
