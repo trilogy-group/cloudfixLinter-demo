@@ -7,10 +7,12 @@ tasks:
      sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
     
   - init: sudo apt-get install jq
-    command: |
+  - init: |
         export AWS_ACCESS_KEY_ID=NOTCONFIGURED
         export AWS_SECRET_ACCESS_KEY=NOTCONFIGURED
         export AWS_DEFAULT_REGION=us-west-2
+        export AWS_SESSION_TOKEN=NOTCONFIGURED
+
   - init: curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
     command: |
      echo "plugin \"template\"{" >> .tflint.hcl
