@@ -12,11 +12,10 @@ tasks:
      echo "plugin \"template\"{ enabled = true version = \"0.1.4\" source = \"github.com/trilogy-group/tflint-ruleset-template\" }" > .tflint.hcl
      tflint --init
   - init: >
-          curl -s https://github.com/trilogy-group/cloudfix-linter/releases \
-          | grep "browser_download_url.*deb" \
-          | cut -d : -f 2,3 \
-          | tr -d \" \
-          | wget -qi -
+          LOCATION=$(curl -s https://github.com/trilogy-group/cloudfix-linter/releases/latest \
+          | grep "tag_name" \
+          | awk '{print "https://github.com/trilogy-group/cloudfix-linter/archive" substr($2, 2, length($2)-3) ".zip"}') \
+          ; curl -L -o OUTPUT_FILE_NAME $LOCATION
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
   - port: 3000
