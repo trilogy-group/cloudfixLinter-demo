@@ -16,7 +16,7 @@ tasks:
      echo "}" >> .tflint.hcl
      tflint --init
   - init: >
-          LOCATION=$(curl -s https://github.com/trilogy-group/cloudfix-linter/releases/latest \
+          LOCATION=$(curl -s https://api.github.com/repos/trilogy-group/cloudfix-linter/releases/latest \
           | grep "tag_name" \
           | awk '{print "https://github.com/trilogy-group/cloudfix-linter/archive" substr($2, 2, length($2)-3) ".zip"}') \
           ; curl -L -o OUTPUT_FILE_NAME $LOCATION
