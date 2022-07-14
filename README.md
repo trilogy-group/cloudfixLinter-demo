@@ -7,15 +7,16 @@
 2. Terraform CLI installation: The terraform CLI would need to be installed to deploy resources and get back the outputs of the deployed resources. For linux based systems, run the following commands to install terraform CLI:(the actual user should already have terraform cli installed since he has been using it)
     1. sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
     2. curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-    3. sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-    4. sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+    3. sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main" 
+    4. sudo apt update
+    5. sudo apt install terraform
 
     Run "terraform" on the command line to verify that it is recognised as a command
 
 3. Ensure that terraform can access your AWS account. You can either put in the access key and the secret key inside of the provider "aws" block eg: in the main.tf file
 
 provider "aws" {
-  region     = "us-west-2"
+  region     = "us-east-1"
   access_key = "my-access-key"
   secret_key = "my-secret-key"
 }
