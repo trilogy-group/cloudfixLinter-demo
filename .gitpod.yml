@@ -23,7 +23,7 @@ tasks:
      echo "}" >> .tflint.hcl
      tflint --init
   - init: > 
-            URL=$(curl -v https://api.github.com/repos/trilogy-group/cloudfix-linter/releases>&1 
+            URL=$(curl -v https://api.github.com/repos/trilogy-group/cloudfix-linter/releases/latest>&1 
             | grep -v ant | grep browser_download_url | grep -v .asc | cut -d '"' -f 4) && wget $URL 
             && ZIP="$(find . -maxdepth 1 -name "namebefore-*-release.zip")" && unzip -qq $ZIP
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
