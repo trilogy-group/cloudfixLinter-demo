@@ -1,8 +1,5 @@
-resource "aws_ebs_volume" "example" {
-  availability_zone = "us-east-1a"
-  size              = 1
-  type              = "gp2"
-  tags = {
-    yor_trace = "9089"
-  }
+resource "aws_efs_file_system" "foo" {
+  creation_token = "my-prod-new"
+
+  
 }

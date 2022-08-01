@@ -1,68 +1,81 @@
 # cloudfixLinter-demoCode
 
+The organization currently does not have a terraform code template for which cloudfix has reccomendations. Hence, to test out [cloudfix-linter](https://github.com/trilogy-group/cloudfix-linter), this demo repo with sample terraform code has been made.
+
 ## Steps on running the demo
 
-1. Clone the repo locally by using git clone command (ensure that you have git installed)
+### Prelimnaries
 
-2. Terraform CLI installation: The terraform CLI would need to be installed to deploy resources and get back the outputs of the deployed resources. For linux based systems, run the following commands to install terraform CLI:(the actual user should already have terraform cli installed since he has been using it)
-    1. sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
-    2. curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-    3. sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main" 
-    4. sudo apt update
-    5. sudo apt install terraform
+1. Create resources. This template will create 6 resources -- 2 EBS volums, 2 EC2 instances, 1 S3 bucket, and 1 EFS file system.
+To create them, first terraform will need to be provided creds to your AWS account. If using a personal account, this can be done by exporting AWS_ACCESS_KEY and AWS_SECRET_KEY as environment variables. If using federated (as trilogy does), saml2aws can be used instead. For more details on how to authorize terraform can be found [here](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
 
-    Run "terraform" on the command line to verify that it is recognised as a command
+2. After authorizing terraform, run
 
-3. Ensure that terraform can access your AWS account. You can either put in the access key and the secret key inside of the provider "aws" block eg: in the main.tf file
+```
+terraform apply
+```
 
-provider "aws" {
-  region     = "us-east-1"
-  access_key = "my-access-key"
-  secret_key = "my-secret-key"
-}
+to create the resources
 
-or you could export AWS_ACCESS_KEY_ID , AWS_SECRET_ACCESS_KEY , AWS_SESSION_TOKEN as enviroment variables (this approach is preffered). More information on how to give access can be found [here](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+3. Since we cannot use actual reccomendations for cloudfix for the resources that we have just created, we will be reading mock reccomendations from a file to mimic the behavior. In order to tell the linter that it needs to read reccomendations from a file rather than from cloudfix itself, on the terminal run
 
-4. Run "terraform init" to initialise terraform, and then "terraform apply" to deploy the resources.
+```
+export CLOUDFIX_FILE=true
+```
 
-2. Jq installation: Install Jq by running the following command: (this dependence would be removed later)
+This will make the linter read reccomendations from a reccos.json file present in the working directory. A reccos.json file has been provided with the demoCode.
 
-    sudo apt-get install jq
+4. Modify the reccos.json file with the resourceIDs for the created resources. As the resources would be created, besides them you'll find their ids. For example, when an EBS file will finish with its creation, an [id=vol-...] sort of message would be given. These ids need to be copy and pasted into the reccos.json file. There would be six ids in total.
+
+The two ids prefixed by (vol-) need to be pasted on line #7 and #30 in the reccos.json file. The two ids prefixed by (id-) need to be pasted on line #53 and #79. The id prefixed by (fs-) needs to be pasted on line #128 and finally the id for the s3 bucket (my-tf-bucket-cloudfixlinter) needs to be pasted on line #105.
+
+**Note**: The above steps only need to performed since we currently do not have a terraform template that has reccomendations from cloudfix. In case the template in question does have recomendations, the user would only need to export CLOUDFIX_USERNAME and CLOUDFIX_PASSWORD as environement variables rather than performing the above steps. The linter would automatically get the reccomendations from Cloudfix using their credentials.
 
 
-3. TfLint installation: Install tflint by running the following command:
+### Running the linter
 
-curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+1. Run 
 
-4. In your cloned directory, make a file named ".tflint.hcl". Paste the following lines in the file:
+```
+cloudfix-linter init
 
-plugin "template"{
-    enabled = true
-    version = "0.1.4"
-    source  = "github.com/trilogy-group/tflint-ruleset-template"
-}
+```
 
-5. Run "tflint --init" to install the plugin. 
+to init the directory in which the linter has to be run
 
-6. the "reccos.json" file needs to be updated with the resource ids of the actual deployed resources. 
+2. Run
 
-    run
-    terraform show -json |  jq '.values.root_module.resources[] | select(.address=="aws_ebs_volume.example") | .values.id'
+```
+terraform apply
+```
 
-    to get the id for the ebs resource. Paste this value in the fisrt object in reccos.json in the resourceID field (currently it has been set to "vol-0607b88a2e8861d07")
+to apply the tags added by cloudfix-linter init
 
-    run
-    terraform show -json |  jq '.values.root_module.resources[] | select(.address=="aws_instance.showcase-1") | .values.id'
 
-    to get the id for the ec2 resource. Paste this value in the second object in reccos.json in the resourceID field (currently it has been set to "i-0d979e8ce8341fe38")
+3. Run
 
-7. Download the orchestrator linux binary from [this_release_page] (https://github.com/trilogy-group/cloudfix-linter/releases)
+```
+cloudfix-linter recco
+```
 
-8. Run the orchestrator from the directory in which your terraform demo code is present. You should see reccomendations being flagged in your console. 
+to get reccomendations on the console
 
-9. To test additional functionality, remove the tags from any one of the resources and run the orchestrator again.
+OR Run
 
-10. You could also change the yor_trace tag to any other number that is not a yor_trace for a separate resource. When you run the orchestrator now, you should see that you are being asked to run a terraform apply to correct your error. Run "terraform apply" and then the run the orchestrator again. You should see recommendations being flagged off again. 
+```
+cloudfix-linter recco --json
+```
+
+to get reccomendations in json format. 
+
+4. For help, run
+
+```
+cloudfix-linter
+```
+
+
+ 
 
 
 
