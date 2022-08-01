@@ -7,7 +7,7 @@ The organization currently does not have a terraform code template for which clo
 ### Prelimnaries
 
 1. Create resources. This template will create 6 resources -- 2 EBS volums, 2 EC2 instances, 1 S3 bucket, and 1 EFS file system.
-To create them, first terraform will need to be provided creds to your AWS account. If using a personal account, this can be done by exporting AWS_ACCESS_KEY and AWS_SECRET_KEY as environment variables. If using federated (as trilogy does), saml2aws can be used instead. For more details on how to authorize terraform can be found [here](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+To create them, first terraform will need to be provided creds to your AWS account. If using a personal account, this can be done by exporting AWS_ACCESS_KEY and AWS_SECRET_KEY as environment variables. If using federated login (as trilogy does), saml2aws can be used instead. For more details on how to authorize terraform can be found [here](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
 
 2. After authorizing terraform, run
 
