@@ -6,7 +6,7 @@ resource "aws_instance" "showcase-1" {
 }
 
 resource "aws_s3_bucket" "b" {
-  bucket = "my-tf-bucket-cloudfixlinter"
+  bucket_prefix = "my-tf-bucket-cloudfixlinter"
 
   
 }
