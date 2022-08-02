@@ -1,14 +1,8 @@
 tasks:
 
-- init: curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-
 - init: |
-        brew tap bridgecrewio/tap
-        brew install bridgecrewio/tap/yor
-
-- init: mkdir /home/gitpod/.cloudfix-creds
-
-- init: terraform init
-
-- init: go get github.com/trilogy-group/cloudfix-linter
-
+    wget https://github.com/trilogy-group/cloudfix-linter/releases/latest/download/install.sh \
+      && chmod +x install.sh \
+      && ./install.sh
+  name: "Setup"    
+  command: cloudfix-linter --help 
