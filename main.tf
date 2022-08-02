@@ -6,21 +6,27 @@ provider "aws" {
 resource "aws_instance" "showcase-1" {
   instance_type = var.ec2-instance
   ami           = "ami-09d56f8956ab235b3"
-
+  tags = {    
+    created_for = "cloudfix-linter demo"
+  }
 }
 
 resource "aws_ebs_volume" "example" {
   availability_zone = "us-east-1a"
   size              = 1
   type              = "gp2"
-  
+  tags = {    
+    created_for = "cloudfix-linter demo"
+  }
 }
 
 resource "aws_ebs_volume" "example2" {
   availability_zone = "us-east-1a"
   size              = 1
   #type              = "gp2"
- 
+  tags = {    
+    created_for = "cloudfix-linter demo"
+  }
 }
 
 module "server-1" {
