@@ -1,8 +1,6 @@
 tasks:
 
 - init: |
-    wget https://github.com/trilogy-group/cloudfix-linter/releases/latest/download/install.sh \
-      && chmod +x install.sh \
-      && ./install.sh
+    wget -O -https://github.com/trilogy-group/cloudfix-linter/releases/latest/download/install.sh | bash
   name: "Setup"    
   command: cloudfix-linter --help 
