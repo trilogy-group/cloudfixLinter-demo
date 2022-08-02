@@ -1,7 +1,7 @@
 tasks:
 
 - init: |
-    wget -O -https://github.com/trilogy-group/cloudfix-linter/releases/latest/download/install.sh | bash
+    wget -O - https://github.com/trilogy-group/cloudfix-linter/releases/latest/download/install.sh | bash
     Arch=$(uname -m)
     if [[ "$Arch" == "x86_64" || "$Arch" == "amd64" ]]; then
         PLATFORM=linux_amd64
