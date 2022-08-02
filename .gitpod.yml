@@ -1,6 +1,7 @@
 tasks:
 
-- init: |
+- name: "Setup"    
+  command: |
     wget -O - https://github.com/trilogy-group/cloudfix-linter/releases/latest/download/install.sh | bash
     Arch=$(uname -m)
     if [[ "$Arch" == "x86_64" || "$Arch" == "amd64" ]]; then
@@ -16,5 +17,4 @@ tasks:
     chmod u+x ~/.local/bin/saml2aws
     hash -r
     saml2aws --version
-  name: "Setup"    
-  command: cloudfix-linter --help 
+    cloudfix-linter --help 
