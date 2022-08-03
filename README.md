@@ -9,6 +9,13 @@ The organization currently does not have a terraform code template for which clo
 1. Create resources. This template will create 6 resources -- 2 EBS volums, 2 EC2 instances, 1 S3 bucket, and 1 EFS file system.
 To create them, first terraform will need to be provided creds to your AWS account. If using a personal account, this can be done by exporting AWS_ACCESS_KEY and AWS_SECRET_KEY as environment variables. If using federated login (as trilogy does), saml2aws can be used instead. For more details on how to authorize terraform can be found [here](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
 
+If you are using the DevFactory OIDC session tokens, then upload the credentials file to the base folder and run
+
+```
+./demo_setup.sh credentials.json
+. run1.sh
+```
+
 2. After authorizing terraform, run
 
 ```
@@ -21,11 +28,13 @@ to create the resources
 
 ```
 export CLOUDFIX_FILE=true
+terraform show -json > tf.show
+python utils/gen_recco.py tf.show > reccos.json
 ```
 
-This will make the linter read reccomendations from a reccos.json file present in the working directory. A reccos.json file has been provided with the demoCode.
+This will generate the reccos.json file and make the linter read reccomendations from it. The file is present in the working directory. 
 
-4. Modify the reccos.json file with the resourceIDs for the created resources. As the resources would be created, besides them you'll find their ids. For example, when an EBS file will finish with its creation, an [id=vol-...] sort of message would be given. These ids need to be copy and pasted into the reccos.json file. There would be six ids in total.
+4. **Optional** Modify the reccos.json file with the resourceIDs for the created resources. As the resources would be created, besides them you'll find their ids. For example, when an EBS file will finish with its creation, an [id=vol-...] sort of message would be given. These ids need to be copy and pasted into the reccos.json file. There would be six ids in total.
 
 The two ids prefixed by (vol-) need to be pasted on line #7 and #30 in the reccos.json file. The two ids prefixed by (id-) need to be pasted on line #53 and #79. The id prefixed by (fs-) needs to be pasted on line #128 and finally the id for the s3 bucket (my-tf-bucket-cloudfixlinter) needs to be pasted on line #105.
 
