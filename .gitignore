@@ -7,3 +7,6 @@ recos.txt
 tagsID.txt
 terraform.tfstate
 terraform.tfstate.backup
+credentials.json
+run1.sh
+tf.show

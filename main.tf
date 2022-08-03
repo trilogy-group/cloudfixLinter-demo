@@ -6,6 +6,7 @@ provider "aws" {
 resource "aws_instance" "showcase-1" {
   instance_type = var.ec2-instance
   ami           = "ami-09d56f8956ab235b3"
+  subnet_id     = "subnet-0103f016fd921604d"
   tags = {    
     created_for = "cloudfix-linter demo"
   }
