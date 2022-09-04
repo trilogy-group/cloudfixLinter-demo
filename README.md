@@ -24,7 +24,7 @@ terraform apply
 
 to create the resources
 
-3. Since CloudFix waits 14 days before it makes recommendations for resources, there will be no reccomendations for the resources just created. You can either mock the recommendations, or use vloudfix.
+3. Since CloudFix waits 14 days before it makes recommendations for resources, there will be no reccomendations for the resources just created. You can either mock the recommendations, or use CloudFix.
 #### To use mock recommendations.
 In order to generate mock recommnedations and tell the linter that it needs to read reccomendations from a file rather than from CloudFix itself, on the terminal run
 
