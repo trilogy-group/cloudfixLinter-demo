@@ -1,6 +1,6 @@
-# cloudfixLinter-demoCode
+# CloudFixLinter-demoCode
 
-The organization currently does not have a terraform code template for which cloudfix has reccomendations. Hence, to test out [cloudfix-linter](https://github.com/trilogy-group/cloudfix-linter), this demo repo with sample terraform code has been made.
+The organization currently does not have a terraform code template for which CloudFix has reccomendations. Hence, to test out [cloudfix-linter](https://github.com/trilogy-group/cloudfix-linter), this demo repo with sample terraform code has been made.
 
 ## Steps on running the demo
 
@@ -24,7 +24,9 @@ terraform apply
 
 to create the resources
 
-3. Since we cannot use actual reccomendations for cloudfix for the resources that we have just created, we will be reading mock reccomendations from a file to mimic the behavior. In order to tell the linter that it needs to read reccomendations from a file rather than from cloudfix itself, on the terminal run
+3. Since CloudFix waits 14 days before it makes recommendations for resources, there will be no reccomendations for the resources just created. You can either mock the recommendations, or use vloudfix.
+#### To use mock recommendations.
+In order to generate mock recommnedations and tell the linter that it needs to read reccomendations from a file rather than from CloudFix itself, on the terminal run
 
 ```
 export CLOUDFIX_FILE=true
@@ -32,13 +34,14 @@ terraform show -json > tf.show
 python utils/gen_recco.py tf.show > reccos.json
 ```
 
-This will generate the reccos.json file and make the linter read reccomendations from it. The file is present in the working directory. 
+#### To use CloudFix recommendations
+```
+export CLOUDFIX_FILE=false
+export CLOUDFIX_USERNAME=<MY_USERNAME>
+export CLOUDFIX_PASSWORD=<PASSWORD>
+```
 
-4. **Optional** Modify the reccos.json file with the resourceIDs for the created resources. As the resources would be created, besides them you'll find their ids. For example, when an EBS file will finish with its creation, an [id=vol-...] sort of message would be given. These ids need to be copy and pasted into the reccos.json file. There would be six ids in total.
-
-The two ids prefixed by (vol-) need to be pasted on line #7 and #30 in the reccos.json file. The two ids prefixed by (id-) need to be pasted on line #53 and #79. The id prefixed by (fs-) needs to be pasted on line #128 and finally the id for the s3 bucket (my-tf-bucket-cloudfixlinter) needs to be pasted on line #105.
-
-**Note**: The above steps only need to performed since we currently do not have a terraform template that has reccomendations from cloudfix. In case the template in question does have recomendations, the user would only need to export CLOUDFIX_USERNAME and CLOUDFIX_PASSWORD as environement variables rather than performing the above steps. The linter would automatically get the reccomendations from Cloudfix using their credentials.
+template in question does have recomendations, the user would only need to export CLOUDFIX_USERNAME and CLOUDFIX_PASSWORD as environement variables rather than performing the above steps. The linter would automatically get the reccomendations from Cloudfix using their credentials.
 
 
 ### Running the linter
