@@ -2,6 +2,8 @@
 
 The organization currently does not have a terraform code template for which CloudFix has reccomendations. Hence, to test out [cloudfix-linter](https://github.com/trilogy-group/cloudfix-linter), this demo repo with sample terraform code has been made.
 
+If you are using Devspaces this repo will load up a vscode extension. [This video](https://www.loom.com/share/df3dd6361fec44d29b98417c5a3cfd1f) demonstrates how to use the extension.
+
 ## Steps on running the demo
 
 ### Prelimnaries
