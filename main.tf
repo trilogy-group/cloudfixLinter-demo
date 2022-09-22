@@ -3,38 +3,38 @@ provider "aws" {
 
 }
 
-resource "aws_instance" "showcase-1" {
+resource "aws_instance" "app-server" {
   instance_type = var.ec2-instance
   ami           = "ami-09d56f8956ab235b3"
   subnet_id     = "subnet-0103f016fd921604d"
-  tags = {    
+  tags = {
     created_for = "cloudfix-linter demo"
   }
 }
 
-resource "aws_ebs_volume" "example" {
+resource "aws_ebs_volume" "data-vol" {
   availability_zone = "us-east-1a"
   size              = 1
   type              = "gp2"
-  tags = {    
+  tags = {
     created_for = "cloudfix-linter demo"
   }
 }
 
-resource "aws_ebs_volume" "example2" {
+resource "aws_ebs_volume" "config-vol" {
   availability_zone = "us-east-1a"
   size              = 1
   #type              = "gp2"
-  tags = {    
+  tags = {
     created_for = "cloudfix-linter demo"
   }
 }
 
-module "server-1" {
-  source            = ".//module-1"
+module "auth" {
+  source            = ".//auth-module"
   web_instance_type = "t2.micro"
 }
 
-module "server-2" {
-  source = ".//module-2"
+module "metrics" {
+  source = ".//metrics-module"
 }
