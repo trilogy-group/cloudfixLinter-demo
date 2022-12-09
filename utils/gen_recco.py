@@ -750,10 +750,14 @@ try:
     recos = []
     with open("./reccos.json","w") as reco:
         for item in data['values']['root_module']['resources']:
-            recos.append(generate_recos(item))
+            r = generate_recos(item)
+            if r!=None:
+                recos.extend(r)
         for module in data['values']['root_module']['child_modules']:
             for item in module['resources']:        
-                recos.append(generate_recos(item))
+                r = generate_recos(item)
+                if r!=None:
+                    recos.extend(r)
         reco.write(json.dumps(recos))
 except Exception as e:
     traceback.print_exc()
