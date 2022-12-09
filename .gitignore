@@ -10,3 +10,6 @@ terraform.tfstate.backup
 credentials.json
 run1.sh
 tf.show
+extra.sh
+.vscode
+reccos.json
