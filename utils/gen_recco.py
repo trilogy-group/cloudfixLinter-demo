@@ -939,7 +939,7 @@ try:
     account_id = arn.split(":")[4]
     region = arn.split(":")[3]
     recos = []
-    with open("./reccos.json","w") as reco:
+    with open("./cloudfix-linter-reccos.json","w") as reco:
         for item in data['values']['root_module']['resources']:
             r = generate_recos(item)
             if r!=None:
