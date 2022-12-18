@@ -8,7 +8,7 @@ resource "aws_instance" "app-server" {
   ami           = "ami-09d56f8956ab235b3"
   subnet_id     = "subnet-0ad82a9a46e5aaf68"
   tags = {
-    created_for = "cloudfix-linter demo"
+    Owner     = "cloudfix-linter"
   }
 }
 
@@ -17,7 +17,7 @@ resource "aws_ebs_volume" "data-vol" {
   size              = 1
   type              = "gp2"
   tags = {
-    created_for = "cloudfix-linter demo"
+    Owner     = "cloudfix-linter"
   }
 }
 
@@ -26,7 +26,7 @@ resource "aws_ebs_volume" "config-vol" {
   size              = 1
   #type              = "gp2"
   tags = {
-    created_for = "cloudfix-linter demo"
+    Owner     = "cloudfix-linter"
   }
 }
 
@@ -34,7 +34,7 @@ resource "aws_vpc_endpoint" "s3" {
   vpc_id       = "vpc-02badd8abb988e06e"
   service_name = "com.amazonaws.us-east-1.s3"
   tags = {
-    created_for = "cloudfix-linter demo"
+    Owner     = "cloudfix-linter"
   }
 }
 
@@ -42,7 +42,7 @@ resource "aws_nat_gateway" "example" {
   connectivity_type = "private"
   subnet_id         = "subnet-0ad82a9a46e5aaf68"
   tags = {
-    created_for = "cloudfix-linter demo"
+    Owner     = "cloudfix-linter"
   }
 }
 
@@ -54,7 +54,7 @@ resource "aws_neptune_cluster" "default" {
   skip_final_snapshot                  = true
   apply_immediately                    = true
   tags = {
-    created_for = "cloudfix-linter demo"
+    Owner     = "cloudfix-linter"
   }
 }
 
@@ -68,7 +68,7 @@ resource "aws_dynamodb_table" "cloudfix-linter" {
     type = "S"
   }
   tags = {
-    created_for = "cloudfix-linter demo"
+    Owner     = "cloudfix-linter"
   }
 }
 
@@ -85,8 +85,7 @@ module "ec2_instance" {
   subnet_id     = "subnet-0ad82a9a46e5aaf68"
 
   tags = {
-    Terraform   = "true"
-    Environment = "dev"
+    Owner     = "cloudfix-linter"
   }
 }
 
@@ -101,14 +100,14 @@ module "s3_bucket_remote" {
   }
 
   tags = {
-    owner     = "prasheel.tiwari@trilogy.com"
+    Owner     = "cloudfix-linter"
   }
 }
 
 module "remote_module_s3" {
   source = "s3::https://s3.amazonaws.com/remote-module-cflint-prasheel/remote-module.zip"
   tags = {
-    owner     = "prasheel.tiwari@trilogy.com"
+    Owner     = "cloudfix-linter"
   }
 }
 
