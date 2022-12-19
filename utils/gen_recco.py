@@ -900,8 +900,9 @@ def generate_recos(item):
         return [generate_vpc_idle_endpoint_recco(region, account_id, item['values']['id'], item['name'])]
 
     if item['type'] == 'aws_dynamodb_table':
-        return [generate_dynamo_db_provisioning_reco(region, account_id, item['values']['id'], item['name']),
-        # generate_dynamo_db_infrequent_access_recco(region, account_id, item['values']['id'], item['name'])
+        return [
+            generate_dynamo_db_infrequent_access_recco(region, account_id, item['values']['id'], item['name']),
+            # generate_dynamo_db_provisioning_reco(region, account_id, item['values']['id'], item['name'])
         ]
 
     if item['type'] == 'aws_cloudtrail':

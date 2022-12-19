@@ -61,7 +61,7 @@ resource "aws_neptune_cluster" "default" {
 resource "aws_dynamodb_table" "cloudfix-linter" {
   name         = "cloudfixlinter"
   hash_key     = "TestTableHashKey"
-  billing_mode = "PAY_PER_REQUEST"
+  billing_mode = "PROVISIONED"
 
   attribute {
     name = "TestTableHashKey"
