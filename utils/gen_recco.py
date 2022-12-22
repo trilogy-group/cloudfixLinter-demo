@@ -878,7 +878,7 @@ def generate_recos(item):
 
     if item['type'] == 'aws_instance':
         return [generate_intel_to_amd_reco(region, account_id, item['values']['id'], item['name']),
-        generate_install_ssm_agent_mac_linux_recco(region, account_id, item['values']['id'], item['name']),
+        # generate_install_ssm_agent_mac_linux_recco(region, account_id, item['values']['id'], item['name']),
         generate_install_ssm_agent_windows_recco(region, account_id, item['values']['id'], item['name']),
         # generate_ec2_low_risk_right_size_recco(region, account_id, item['values']['id'], item['name'])
         ]
@@ -890,7 +890,8 @@ def generate_recos(item):
         return [generate_s3_reco(region, account_id, item['values']['bucket'], item['values']['bucket'])]
 
     if item['type'] == 'aws_efs_file_system':
-        return [generate_efs_ia_reco(region, account_id, item['values']['id'], item['name']),
+        return [
+            # generate_efs_ia_reco(region, account_id, item['values']['id'], item['name']),
         generate_efs_intelli_tiering_recco(region, account_id, item['values']['id'], item['name'])
         ]
     if item['type'] == 'aws_neptune_cluster':

@@ -104,7 +104,7 @@ module "s3_bucket_remote" {
   }
 }
 
-module "remote_module_s3" {
+module "remote_module_from_s3" {
   source = "s3::https://s3.amazonaws.com/remote-module-cflint-prasheel/remote-module.zip"
   tags = {
     Owner     = "cloudfix-linter"
