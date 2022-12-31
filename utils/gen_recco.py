@@ -253,7 +253,7 @@ def generate_efs_intelli_tiering_recco(region, account, resource_id, resource_na
         "opportunityDescription": "EFS Intelligent Tiering",
         "primaryImpactedNodeId": resource_id,
         "otherImpactedNodeIds": [],
-        "resourceId": "arn:aws:elasticfilesystem:us-east-1:610092376560:file-system/fs-e6142b52",
+        "resourceId": resource_id,
         "resourceName": resource_name,
         "difficulty": 1,
         "risk": 1,
