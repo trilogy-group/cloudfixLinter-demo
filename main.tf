@@ -6,7 +6,7 @@ provider "aws" {
 resource "aws_instance" "app-server" {
   instance_type = var.ec2-instance
   ami           = "ami-09d56f8956ab235b3"
-  subnet_id     = "subnet-0ad82a9a46e5aaf68"
+  subnet_id     = var.subnet_id
   tags = {
     Owner     = "cloudfix-linter@trilogy.com"
   }
@@ -113,7 +113,6 @@ module "remote_module_from_s3" {
 
 module "auth" {
   source            = ".//auth-module"
-  web_instance_type = "t2.micro"
 }
 
 module "metrics" {

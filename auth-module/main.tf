@@ -2,7 +2,7 @@ resource "aws_instance" "app-server" {
 
   ami           = "ami-09d56f8956ab235b3"
   instance_type = var.web_instance_type
-  subnet_id     = "subnet-0ad82a9a46e5aaf68"
+  subnet_id     = var.subnet_id
   tags = {
     Owner       = "cloudfix-linter@trilogy.com"
   }
