@@ -5,7 +5,7 @@ variable "web_instance_type" {
 
 variable "subnet_id" {
   type = string
-  default = "subnet-0103f016fd921604d"
+  default = "subnet-0ad82a9a46e5aaf68"
 }
 
 variable "ami"  {
