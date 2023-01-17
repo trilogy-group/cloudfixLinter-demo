@@ -6,7 +6,7 @@ provider "aws" {
 resource "aws_instance" "app-server" {
   instance_type = var.ec2-instance
   ami           = var.ami
-  subnet_id     = var.app_server_subnet_id
+  subnet_id     = var.subnet_id
   tags = {
     Owner     = "cloudfix-linter@trilogy.com"
   }
