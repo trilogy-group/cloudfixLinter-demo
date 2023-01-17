@@ -12,3 +12,8 @@ variable "ami"  {
   type =string
   default = "ami-09d56f8956ab235b3"
 }
+
+variable "ami"  {
+  type =string
+  default = "ami-09d56f8956ab235b3"
+}
