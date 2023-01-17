@@ -1,6 +1,6 @@
 resource "aws_instance" "app-server" {
 
-  ami           = "ami-09d56f8956ab235b3"
+  ami           = var.ami
   instance_type = var.web_instance_type
   subnet_id     = var.subnet_id
   tags = {

@@ -5,8 +5,8 @@ provider "aws" {
 
 resource "aws_instance" "app-server" {
   instance_type = var.ec2-instance
-  ami           = "ami-09d56f8956ab235b3"
-  subnet_id     = var.subnet_id
+  ami           = var.ami
+  subnet_id     = var.app_server_subnet_id
   tags = {
     Owner     = "cloudfix-linter@trilogy.com"
   }
@@ -31,7 +31,7 @@ resource "aws_ebs_volume" "config-vol" {
 }
 
 resource "aws_vpc_endpoint" "s3" {
-  vpc_id       = "vpc-02badd8abb988e06e"
+  vpc_id       = var.vpc_id
   service_name = "com.amazonaws.us-east-1.s3"
   tags = {
     Owner     = "cloudfix-linter@trilogy.com"
@@ -40,7 +40,7 @@ resource "aws_vpc_endpoint" "s3" {
 
 resource "aws_nat_gateway" "example" {
   connectivity_type = "private"
-  subnet_id         = "subnet-0ad82a9a46e5aaf68"
+  subnet_id         = var.subnet_id
   tags = {
     Owner     = "cloudfix-linter@trilogy.com"
   }
@@ -79,10 +79,10 @@ module "ec2_instance" {
 
   name = "single-instance"
 
-  ami           = "ami-09d56f8956ab235b3"
+  ami           = var.ami
   instance_type = "t2.micro"
   monitoring    = true
-  subnet_id     = "subnet-0ad82a9a46e5aaf68"
+  subnet_id     = var.subnet_id
 
   tags = {
     Owner     = "cloudfix-linter@trilogy.com"
