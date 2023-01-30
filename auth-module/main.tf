@@ -4,14 +4,14 @@ resource "aws_instance" "app-server" {
   instance_type = var.web_instance_type
   subnet_id     = var.subnet_id
   tags = {
-    Owner     = "cloudfix-linter@trilogy.com"
+    Owner     = "ankush.pandey@trilogy.com"
   }
 }
 
 resource "aws_s3_bucket" "b" {
   bucket_prefix = "my-tf-bucket-cloudfixlinter"
   tags = {
-    Owner     = "cloudfix-linter@trilogy.com"
+    Owner     = "ankush.pandey@trilogy.com"
   }
 
 }

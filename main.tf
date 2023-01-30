@@ -8,7 +8,7 @@ resource "aws_instance" "app-server" {
   ami           = var.ami
   subnet_id     = var.subnet_id
   tags = {
-    Owner     = "cloudfix-linter@trilogy.com"
+    Owner     = "ankush.pandey@trilogy.com"
   }
 }
 
@@ -17,7 +17,7 @@ resource "aws_ebs_volume" "data-vol" {
   size              = 1
   type              = "gp2"
   tags = {
-    Owner     = "cloudfix-linter@trilogy.com"
+    Owner     = "ankush.pandey@trilogy.com"
   }
 }
 
@@ -26,7 +26,7 @@ resource "aws_ebs_volume" "config-vol" {
   size              = 1
   #type              = "gp2"
   tags = {
-    Owner     = "cloudfix-linter@trilogy.com"
+    Owner     = "ankush.pandey@trilogy.com"
   }
 }
 
@@ -34,7 +34,7 @@ resource "aws_vpc_endpoint" "s3" {
   vpc_id       = var.vpc_id
   service_name = "com.amazonaws.us-east-1.s3"
   tags = {
-    Owner     = "cloudfix-linter@trilogy.com"
+    Owner     = "ankush.pandey@trilogy.com"
   }
 }
 
@@ -42,7 +42,7 @@ resource "aws_nat_gateway" "example" {
   connectivity_type = "private"
   subnet_id         = var.subnet_id
   tags = {
-    Owner     = "cloudfix-linter@trilogy.com"
+    Owner     = "ankush.pandey@trilogy.com"
   }
 }
 
@@ -54,7 +54,7 @@ resource "aws_neptune_cluster" "default" {
   skip_final_snapshot                  = true
   apply_immediately                    = true
   tags = {
-    Owner     = "cloudfix-linter@trilogy.com"
+    Owner     = "ankush.pandey@trilogy.com"
   }
 }
 
@@ -68,7 +68,7 @@ resource "aws_dynamodb_table" "cloudfix-linter" {
     type = "S"
   }
   tags = {
-    Owner     = "cloudfix-linter@trilogy.com"
+    Owner     = "ankush.pandey@trilogy.com"
   }
 }
 
@@ -85,7 +85,7 @@ module "ec2_instance" {
   subnet_id     = var.subnet_id
 
   tags = {
-    Owner     = "cloudfix-linter@trilogy.com"
+    Owner     = "ankush.pandey@trilogy.com"
   }
 }
 
@@ -100,14 +100,14 @@ module "s3_bucket_remote" {
   }
 
   tags = {
-    Owner     = "cloudfix-linter@trilogy.com"
+    Owner     = "ankush.pandey@trilogy.com"
   }
 }
 
 module "remote_module_from_s3" {
   source = "s3::https://s3.amazonaws.com/remote-module-cflint-prasheel/remote-module.zip"
   tags = {
-    Owner     = "cloudfix-linter@trilogy.com"
+    Owner     = "ankush.pandey@trilogy.com"
   }
 }
 
