@@ -108,7 +108,7 @@ OR Run
 cloudfix-linter recco -j
 ```
 
-to get reccomendations in json format. 
+to get reccomendations in json format. *(This command may not prompt descriptive errors currently, try without `-j` flag if having issues)*
 
 4. For help, run
 
@@ -141,18 +141,15 @@ For VSCode Steps are -
   - Open command pallet `cmd+shift+P`.
   - Choose reload window with clear cache.
 
-###FAQ's
+### FAQ's
 ###### These FAQ's try to cover the questions that user might face while using Mock recommendation or Cloudfix account.
 
 1. What will happen if the user no Tags block in the terraform scripts?  
 => If there are not tags block in terraform files extension will show a linting message about missing tag block and a solution for  how to rectify it.
 <img width="761" alt="image" src="https://user-images.githubusercontent.com/110278052/216258011-596c459b-3ebe-4454-9dfd-b2120bfe0b5d.png">
-
-
  
 2. What will happen if the user has yor tags before installing extension?  
 => Extension recognises the prescence of the yor tags. Even on running the apply tags command these tags won't change.
-
 
 3. What if user tries to get recommendation without applying yor_traces?  
 => Extension will lint a message stating yor_trace_ids can't be found and the solution to it.
@@ -163,7 +160,12 @@ For VSCode Steps are -
 <img width="751" alt="image" src="https://user-images.githubusercontent.com/110278052/216258738-bfa8426f-0a66-4803-800b-4cc5d6b0c701.png">
 
 
+### Troubleshooting
 
-
-
-
+1. Logs are created at `cloudfix-linter/logs` folder
+2. At times because of some version upgrade things might not work, easiest way to go about it is
+    - Delete cloudfix-linter folder
+    - Reload vscode window
+      - `ctrl+shift+p` to open command palette
+      - Select `Developer: Reload Window`
+    - This will reinstall the linter to reinitiate the process from scratch
