@@ -1,0 +1,5 @@
+ec2-instance = "t2.micro"
+id           = "app-server"
+vpc_id       = "vpc-02badd8abb988e06e"
+subnet_id    = "subnet-0ad82a9a46e5aaf68"
+ami          = "ami-09d56f8956ab235b3"

@@ -1,0 +1,1 @@
+wget -O - https://github.com/trilogy-group/cloudfix-linter/releases/latest/download/install.sh | bash
