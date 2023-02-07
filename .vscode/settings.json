@@ -1,3 +1,4 @@
 {
-    "cloudfix-linter.overrideCloudFixResultsForTesting": true
+    "cloudfix-linter.overrideCloudFixResultsForTesting": true,
+    "cloudfix-linter.Platform": "Terraform"
 }
