@@ -61,14 +61,14 @@ python utils/gen_recco.py tf.show
 - Windows
 ```
 $env:CLOUDFIX_FILE=$false
-$env:CLOUDFIX_USERNAME=<MY_USERNAME>
-$env:CLOUDFIX_PASSWORD=<PASSWORD>
+$env:CLOUDFIX_USERNAME="<MY_USERNAME>"
+$env:CLOUDFIX_PASSWORD="<PASSWORD>"
 ```
 - Linux and Devspaces
 ```
 export CLOUDFIX_FILE=false
-export CLOUDFIX_USERNAME=<MY_USERNAME>
-export CLOUDFIX_PASSWORD=<PASSWORD>
+export CLOUDFIX_USERNAME="<MY_USERNAME>"
+export CLOUDFIX_PASSWORD="<PASSWORD>"
 ```
 
 template in question does have recomendations, the user would only need to export CLOUDFIX_USERNAME and CLOUDFIX_PASSWORD as environement variables rather than performing the above steps. The linter would automatically get the reccomendations from Cloudfix using their credentials.
