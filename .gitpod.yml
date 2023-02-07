@@ -13,6 +13,7 @@ tasks:
         echo "Unsupported platform"
         exit 1
     fi
+    echo ""
   command: |
     
     CURRENT_VERSION=$(curl -Ls https://api.github.com/repos/Versent/saml2aws/releases/latest | grep 'tag_name' | cut -d'v' -f2 | cut -d'"' -f1)
@@ -20,8 +21,7 @@ tasks:
     chmod u+x ~/.local/bin/saml2aws
     hash -r
     saml2aws --version
-    cloudfix-linter --help 
-
+    cloudfix-linter/cloudfix-linter --help 
 vscode:
   extensions:
     - "devfactory.cloudfix-linter"
