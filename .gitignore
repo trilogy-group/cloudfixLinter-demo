@@ -14,3 +14,4 @@ extra.sh
 .vscode
 reccos.json
 cloudfix-linter*
+.cdkout

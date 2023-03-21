@@ -1,0 +1,11 @@
+tasks:
+  - command: |
+      npm install -g typescript
+      npm install aws-cdk-lib
+      npm install @aws-cdk/aws-neptune-alpha
+      
+
+vscode:
+  extensions:
+    - "golang.go"
+    - "devfactory.cloudfix-linter"
