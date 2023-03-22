@@ -98,18 +98,18 @@ export class CfDemoStack extends Stack {
     //aws_s3_bucket_versioningterraforte
 
     //neptune DBCluster
-    const cluster = new neptune.DatabaseCluster(this, 'cloufix-cf-MyCluster', {
-      instanceType: neptune.InstanceType.R5_LARGE,
-      vpc: DefaultVpc,
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
-      port: 8182,
-      iamAuthentication: true,
-      backupRetention: cdk.Duration.days(7),
-      preferredBackupWindow: '03:00-04:00',
-      vpcSubnets:{
-        subnetType: SubnetType.PUBLIC 
-      }
-    });
+    // const cluster = new neptune.DatabaseCluster(this, 'cloufix-cf-MyCluster', {
+    //   instanceType: neptune.InstanceType.R5_LARGE,
+    //   vpc: DefaultVpc,
+    //   removalPolicy: cdk.RemovalPolicy.DESTROY,
+    //   port: 8182,
+    //   iamAuthentication: true,
+    //   backupRetention: cdk.Duration.days(7),
+    //   preferredBackupWindow: '03:00-04:00',
+    //   vpcSubnets:{
+    //     subnetType: SubnetType.PUBLIC 
+    //   }
+    // });
 
 
   }
