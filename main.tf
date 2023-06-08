@@ -10,6 +10,24 @@ resource "aws_instance" "app-server" {
     created_for = "cloudfix-linter demo"
     Owner = "ankush.pandey@trilogy.com"
   }
+    root_block_device {
+    volume_type           = "gp2"
+    volume_size           = "8"
+    delete_on_termination = true
+  }
+  ebs_block_device {
+    device_name           = "xvda"
+    volume_type           = "gp2"
+    volume_size           = "8"
+    delete_on_termination = true
+  }
+      ebs_block_device {
+    device_name           = "xvdb"
+    volume_type           = "gp2"
+    volume_size           = "8"
+    delete_on_termination = true
+  }
+
 }
 
 resource "aws_ebs_volume" "data-vol" {
@@ -37,6 +55,20 @@ module "auth" {
   web_instance_type = "t2.micro"
 }
 
+module "auth2" {
+  source            = ".//auth-module"
+  web_instance_type = "t3.micro"
+}
+
 module "metrics" {
   source = ".//metrics-module"
+}
+
+module "metrics2" {
+  source = ".//metrics-module"
+}
+
+module "remote-test" {
+    source            = "git::https://github.com/yashg-ti/Test.git"
+    web_instance_type = "t2.micro"
 }
