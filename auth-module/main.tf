@@ -6,6 +6,17 @@ resource "aws_instance" "app-server" {
     created_for = "cloudfix-linter demo"
     Owner = "ankush.pandey@trilogy.com"
   }
+  root_block_device {
+    volume_type           = "gp2"
+    volume_size           = "8"
+    delete_on_termination = true
+  }
+  ebs_block_device {
+    device_name           = "xvda"
+    volume_type           = "gp2"
+    volume_size           = "8"
+    delete_on_termination = true
+  }
 }
 
 resource "aws_s3_bucket" "b" {
