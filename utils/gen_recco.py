@@ -917,13 +917,12 @@ def generate_recos(item):
             reccommendations.append(generate_volume_reco(region, account_id, nestedBlocks['volume_id'], item['name']))
             reccommendations.append(generate_unused_ebs_volume_reco(region, account_id, nestedBlocks['volume_id'], item['name']))
 
-        reccommendations.extend([generate_intel_to_amd_reco(region, account_id, item['values']['id'], item['name']),
+        reccommendations.extend([
+            generate_intel_to_amd_reco(region, account_id, item['values']['id'], item['name']),
             # generate_install_ssm_agent_mac_linux_recco(region, account_id, item['values']['id'], item['name']),
             generate_install_ssm_agent_windows_recco(region, account_id, item['values']['id'], item['name']),
             # generate_ec2_low_risk_right_size_recco(region, account_id, item['values']['id'], item['name'])
-            generate_unused_ebs_volume_reco(region, account_id, item['values']['id'], item['name']),
-            ]
-        )
+        ])
         return reccommendations
     
     if item['type'] == 'aws_ami':
