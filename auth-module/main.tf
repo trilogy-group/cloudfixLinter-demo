@@ -7,7 +7,7 @@ resource "aws_instance" "app-server" {
     Owner = "ankush.pandey@trilogy.com"
   }
   root_block_device {
-    volume_type           = "gp2"
+    volume_type           = var.ebs_device_type
     volume_size           = "8"
     delete_on_termination = true
   }
