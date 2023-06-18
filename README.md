@@ -91,13 +91,13 @@ to init the directory in which the linter has to be run
 terraform apply
 ```
 
-to apply the tags added by cloudfix-linter init
+to deploy the resources
 
 
 3. Run
 
 ```
-cloudfix-linter recco
+cloudfix-linter tf reco
 ```
 
 to get reccomendations on the console
@@ -119,7 +119,6 @@ cloudfix-linter
 ### Getting back to inital state after completing demo
 
 1. Redoing all the changes made till now .
-This includes removing the yor tags added to the resources and files created by various scripts
 
 
 a. Run
@@ -134,33 +133,12 @@ b. Run
 ```
 git reset --hard HEAD
 ```
-This should remove all the yor tags and other changes done.
+This should set the state of repo to current HEAD
 
 c. Finally do a reload with clear cache in your IDE.
 For VSCode Steps are -
   - Open command pallet `cmd+shift+P`.
   - Choose reload window with clear cache.
-
-###FAQ's
-###### These FAQ's try to cover the questions that user might face while using Mock recommendation or Cloudfix account.
-
-1. What will happen if the user no Tags block in the terraform scripts?  
-=> If there are not tags block in terraform files extension will show a linting message about missing tag block and a solution for  how to rectify it.
-<img width="761" alt="image" src="https://user-images.githubusercontent.com/110278052/216258011-596c459b-3ebe-4454-9dfd-b2120bfe0b5d.png">
-
-
- 
-2. What will happen if the user has yor tags before installing extension?  
-=> Extension recognises the prescence of the yor tags. Even on running the apply tags command these tags won't change.
-
-
-3. What if user tries to get recommendation without applying yor_traces?  
-=> Extension will lint a message stating yor_trace_ids can't be found and the solution to it.
-<img width="751" alt="image" src="https://user-images.githubusercontent.com/110278052/216258326-4563b505-cd48-4a33-a2b9-96b6a8f4eac9.png">
-
-4. what will happen if user changes the Yor tags for some reason?  
-=> Since yor tags are the key to recognise the resources that have been deployed by that terraform module. A linting stating traceId can't be linked to any AWS resource will be shown.
-<img width="751" alt="image" src="https://user-images.githubusercontent.com/110278052/216258738-bfa8426f-0a66-4803-800b-4cc5d6b0c701.png">
 
 
 
