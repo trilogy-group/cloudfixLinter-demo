@@ -132,7 +132,7 @@ cloudfix-linter
 1. Install the extension from [here](https://open-vsx.trilogy.devspaces.com/extension/devfactory/cloudfix-linter)
 2. Open the terraform "folder" in VSCode.
 3. Get command palette by `Ctrl+Shift+P` and run command `Cloudfix-linter: Init`.
-4. Select `mock-recommendations` for the demo [repo](https://github.com/trilogy-group/cloudfixLinter-demo/). `Init` assigns YOR tags to all the resources.
+4. Select `mock-recommendations` for the demo [repo](https://github.com/trilogy-group/cloudfixLinter-demo/).
 5. Ensure that terraform can access your AWS account. You can use one of the following
    1. Devconnect with [saml2aws](https://github.com/Versent/saml2aws)
    2. Set the access key and the secret key inside of the provider "aws" block eg: in the main.tf file provider "aws" { region = "us-east-1" access_key = "my-access-key" secret_key = "my-secret-key" }
