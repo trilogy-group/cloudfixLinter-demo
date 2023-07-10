@@ -58,8 +58,8 @@ module "auth" {
 
 module "auth2" {
   source            = ".//auth-module"
-  web_instance_type = "t3.micro"
-  ebs_device_type   = "gp3"
+  web_instance_type = "t3a.micro"
+  ebs_device_type   = "gp2"
 }
 
 module "metrics" {

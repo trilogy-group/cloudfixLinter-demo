@@ -7,7 +7,7 @@ resource "aws_instance" "app-server" {
     Owner = "ankush.pandey@trilogy.com"
   }
   root_block_device {
-    volume_type           = var.ebs_device_type
+    volume_type           = "gp3"
     volume_size           = "8"
     delete_on_termination = true
   }
@@ -19,11 +19,7 @@ resource "aws_instance" "app-server" {
   }
 }
 
-resource "aws_s3_bucket" "b" {
-  bucket_prefix = "my-tf-bucket-cloudfixlinter"
-  tags = {
-    created_for = "cloudfix-linter demo"
-    Owner = "ankush.pandey@trilogy.com"
-  }
-
+module "auth22" {
+  source            = ".//auth-child-module"
+  ebs_device_type   = var.ebs_device_type
 }
