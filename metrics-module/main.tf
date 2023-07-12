@@ -7,7 +7,7 @@ resource "aws_efs_file_system" "store" {                // zz problem, fix this 
 }
 
 module "auth-child1" {
-    source            = "..//auth-module//auth-child-module"
+    source            = "..//auth-module//auth-child-module"          // ||Note: why whis(sourcing super directories) was never a problem check work flowy
     ebs_device_type   = "gp3"                         // Change this to yy to save xx dollars for a resource with a module path : root->child->grandchild...
 }
 

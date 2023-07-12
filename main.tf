@@ -50,10 +50,10 @@ resource "aws_ebs_volume" "config-vol" {          //.......
   }
 }
 
-module "auth" {                                 || Note: for modules blocks there are no global problems, only variable('var') problems are trasferred
+module "auth" {                                // || Note: for modules blocks there are no global problems, only variable('var') problems are trasferred
   source            = ".//auth-module"
   web_instance_type = "t2.micro"                // Change this to xx to save yy dollars for a resource with a module path: root->child->grandchild...   
-  ebs_device_type   = "gp2"                     //......       ||Note: giving the entire module path, allows tf developers to position their variables in a suitable place. Its difficult to predict that suitable place for all cases which depends upon the level where module duplication is done, hence the enitre path to guide developers. Why this works? coz all module paths uniquely lead to a single module instance/ duplicate module paths from root, can't exist
+  ebs_device_type   = "gp2"                     //......       || Note: why giving entire module paths should be done? check workflowy
 }
 
 module "auth2" {
