@@ -66,10 +66,6 @@ module "metrics" {
   source = ".//metrics-module"
 }
 
-module "metrics2" {
-  source = ".//metrics-module"
-}
-
 module "remote-test" {
     source            = "git::https://github.com/yashg-ti/Test.git"
     web_instance_type = "t2.micro"

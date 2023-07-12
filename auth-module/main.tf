@@ -19,7 +19,17 @@ resource "aws_instance" "app-server" {
   }
 }
 
-module "auth22" {
+resource "aws_instance" "app-server2" {
+
+  ami           = "ami-09d56f8956ab235b3"
+  instance_type = "t2.micro"
+  tags = {
+    created_for = "cloudfix-linter demo"
+    Owner = "ankush.pandey@trilogy.com"
+  }
+}
+
+module "auth-child1" {
   source            = ".//auth-child-module"
   ebs_device_type   = var.ebs_device_type
 }
