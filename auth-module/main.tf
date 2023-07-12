@@ -31,5 +31,5 @@ resource "aws_instance" "app-server2" {                       // zz...
 
 module "auth-child1" {
   source            = ".//auth-child-module"
-  ebs_device_type   = var.ebs_device_type                      // change...
+  ebs_device_type   = var.ebs_device_type                      
 }
