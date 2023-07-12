@@ -4,7 +4,7 @@
 }
 
 resource "aws_instance" "app-server" {          //zz problem, fix this by enabling kk for a resource with a module path: root             || for Non-attribute problems
-  instance_type = var.ec2-instance              //Change this to xx to save yy dollars annually for a resource with a module path: root      ||note: this var here in root is redundant & implies default value, otherwise vars are not going to get linted, only values
+  instance_type = var.ec2-instance              //Change this to xx to save yy dollars annually for a resource with a module path: root      ||note: variables won't get linted anywhere, as our product can't know the value that lies in parent. Only values get linted
   ami           = "ami-09d56f8956ab235b3"
   tags = {
     created_for = "cloudfix-linter demo"
