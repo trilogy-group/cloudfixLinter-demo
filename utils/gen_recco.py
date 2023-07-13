@@ -1001,6 +1001,12 @@ try:
                     r = generate_recos(item)
                     if r!=None:
                         recos.extend(r)
+                if 'child_modules' in module:
+                    for grandchildmodule in module['child_modules']:
+                        for grandchilditem in grandchildmodule['resources']:        
+                            r = generate_recos(grandchilditem)
+                            if r!=None:
+                                recos.extend(r)
         reco.write(json.dumps(recos))
 except Exception as e:
     traceback.print_exc()
