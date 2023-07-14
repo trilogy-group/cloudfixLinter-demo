@@ -48,13 +48,13 @@ In order to generate mock recommnedations and tell the linter that it needs to r
 ```
 $env:CLOUDFIX_FILE=$true
 terraform show -json > tf.show
-python utils/gen_recco.py tf.show
+python3 utils/gen_recco.py tf.show
 ```
 - Linux and Devspaces
 ```
 export CLOUDFIX_FILE=true
 terraform show -json > tf.show
-python utils/gen_recco.py tf.show
+python3 utils/gen_recco.py tf.show
 ```
 
 #### To use cloudFix recommendations
