@@ -154,7 +154,6 @@ cloudfix-linter
 ### Getting back to inital state after completing demo
 
 1. Redoing all the changes made till now .
-This includes removing the additional files created
 
 
 a. Run
@@ -169,14 +168,15 @@ b. Run
 ```
 git reset --hard HEAD
 ```
-This should revert the changes done.
+
+This should set the state of repo to current HEAD
+
 
 c. Finally do a reload with clear cache in your IDE.
 For VSCode Steps are -
   - Open command pallet `cmd+shift+P`.
   - Choose reload window with clear cache.
 
-### Troubleshooting
 
 1. Logs are created at `cloudfix-linter/logs` folder
 2. At times because of some version upgrade things might not work, easiest way to go about it is

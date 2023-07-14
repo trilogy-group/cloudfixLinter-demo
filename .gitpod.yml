@@ -21,7 +21,7 @@ tasks:
     chmod u+x ~/.local/bin/saml2aws
     hash -r
     saml2aws --version
-    cloudfix-linter/cloudfix-linter --help 
+    ~/.cloudfix-linter/bin/cloudfix-linter --help 
 vscode:
   extensions:
     - "devfactory.cloudfix-linter"

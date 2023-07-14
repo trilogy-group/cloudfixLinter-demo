@@ -835,6 +835,7 @@ def generate_opensearch_right_size_clusters_recco(region, account, resource_id, 
         "isTemplateAvailable": True
     }
 
+
 def generate_rds_right_size_mysql_clusters_recco(region, account, resource_id, resource_name):
     return {
         "id": str(uuid.uuid4()),
@@ -868,6 +869,37 @@ def generate_rds_right_size_mysql_clusters_recco(region, account, resource_id, r
         "isTemplateAvailable": True
     }
 
+def generate_rds_cleanup_idle_clusters_recco(region, account, resource_id, resource_name):
+    return {
+        "id": str(uuid.uuid4()),
+        "customerId": 5,
+        "accountId": "937078055954",
+        "accountNickname": "AnswerHub",
+        "opportunityType": "RDSCleanupIdleClusters",
+        "region": region,
+        "organizationalUnitName": "Root/Production",
+        "opportunityDescription": "Cleanup Idle RDS Clusters",
+        "primaryImpactedNodeId": resource_id,
+        "otherImpactedNodeIds": [],
+        "resourceId": resource_id,
+        "resourceName": resource_name,
+        "level": 2,
+        "applicationEnvironment": "staging",
+        "annualSavings": 353.13,
+        "annualCost": 353.13,
+        "changeRequestId": "oi-39856c972584",
+        "changeRequestStatus": "In Progress",
+        "createdAt": "2023-05-23T16:03:05.000Z",
+        "updatedAt": "2023-06-01T07:01:34.000Z",
+        "status": "Resource Deleted",
+        "scheduledAt": "2023-05-31T14:05:45.000Z",
+        "parameters": {},
+        "isTemplateApproved": True,
+        "autoApproved": False,
+        "isTemplateAvailable": True,
+        "ouId": "ou-kh92-t6133x10"
+    }
+
 def generate_recos(item):
     if item['type'] == 'aws_ebs_volume':
         return [generate_volume_reco(region, account_id, item['values']['id'], item['name']),
@@ -877,12 +909,23 @@ def generate_recos(item):
         ]
 
     if item['type'] == 'aws_instance':
-        return [generate_intel_to_amd_reco(region, account_id, item['values']['id'], item['name']),
-        # generate_install_ssm_agent_mac_linux_recco(region, account_id, item['values']['id'], item['name']),
-        generate_install_ssm_agent_windows_recco(region, account_id, item['values']['id'], item['name']),
-        # generate_ec2_low_risk_right_size_recco(region, account_id, item['values']['id'], item['name'])
-        ]
+        reccommendations = []
+        for nestedBlocks in item['values']['ebs_block_device']:
+            reccommendations.append(generate_volume_reco(region, account_id, nestedBlocks['volume_id'], item['name']))
+            reccommendations.append(generate_unused_ebs_volume_reco(region, account_id, nestedBlocks['volume_id'], item['name']))
+        for nestedBlocks in item['values']['root_block_device']:
+            reccommendations.append(generate_volume_reco(region, account_id, nestedBlocks['volume_id'], item['name']))
+            reccommendations.append(generate_unused_ebs_volume_reco(region, account_id, nestedBlocks['volume_id'], item['name']))
 
+        reccommendations.extend([generate_intel_to_amd_reco(region, account_id, item['values']['id'], item['name']),
+            # generate_install_ssm_agent_mac_linux_recco(region, account_id, item['values']['id'], item['name']),
+            generate_install_ssm_agent_windows_recco(region, account_id, item['values']['id'], item['name']),
+            # generate_ec2_low_risk_right_size_recco(region, account_id, item['values']['id'], item['name'])
+            generate_unused_ebs_volume_reco(region, account_id, item['values']['id'], item['name']),
+            ]
+        )
+        return reccommendations
+    
     if item['type'] == 'aws_ami':
         return [generate_ec2_cleanup_unused_amis_recco(region, account_id, item['values']['id'], item['name'])]
 
@@ -895,7 +938,7 @@ def generate_recos(item):
         generate_efs_intelli_tiering_recco(region, account_id, item['values']['id'], item['name'])
         ]
     if item['type'] == 'aws_neptune_cluster':
-        return [generate_neptune_idle_cluster_reco(region, account_id, item['values']['id'], item['name'])]
+        return [generate_neptune_idle_cluster_reco(region, account_id, item['values']['arn'], item['name'])]
         
     if item['type'] == 'aws_vpc_endpoint':
         return [generate_vpc_idle_endpoint_recco(region, account_id, item['values']['id'], item['name'])]
@@ -928,6 +971,12 @@ def generate_recos(item):
 
     if item['type'] == 'aws_cloudfront_distribution':
         return [generate_cloudfront_compression_recco(region, account_id, item['values']['id'], item['name'])]
+    
+    if item['type'] == 'aws_rds_cluster':
+        return [generate_rds_cleanup_idle_clusters_recco(region, account_id, item['values']['id'], item['name'])]
+    
+    if item['type'] == 'aws_db_instance':
+        return [generate_rds_cleanup_idle_clusters_recco(region, account_id, item['values']['arn'], item['name'])]
 
 try:
     if platform.system()=="Windows":
@@ -946,11 +995,18 @@ try:
             r = generate_recos(item)
             if r!=None:
                 recos.extend(r)
-        for module in data['values']['root_module']['child_modules']:
-            for item in module['resources']:        
-                r = generate_recos(item)
-                if r!=None:
-                    recos.extend(r)
+        if 'child_modules' in data['values']['root_module']:
+            for module in data['values']['root_module']['child_modules']:
+                for item in module['resources']:        
+                    r = generate_recos(item)
+                    if r!=None:
+                        recos.extend(r)
+                if 'child_modules' in module:
+                    for grandchildmodule in module['child_modules']:
+                        for grandchilditem in grandchildmodule['resources']:        
+                            r = generate_recos(grandchilditem)
+                            if r!=None:
+                                recos.extend(r)
         reco.write(json.dumps(recos))
 except Exception as e:
     traceback.print_exc()
