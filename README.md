@@ -61,31 +61,42 @@ python utils/gen_recco.py tf.show
 - Windows
 ```
 $env:CLOUDFIX_FILE=$false
-$env:CLOUDFIX_USERNAME=<MY_USERNAME>
-$env:CLOUDFIX_PASSWORD=<PASSWORD>
+$env:CLOUDFIX_USERNAME="<MY_USERNAME>"
+$env:CLOUDFIX_PASSWORD="<PASSWORD>"
 ```
 - Linux and Devspaces
 ```
 export CLOUDFIX_FILE=false
-export CLOUDFIX_USERNAME=<MY_USERNAME>
-export CLOUDFIX_PASSWORD=<PASSWORD>
+export CLOUDFIX_USERNAME="<MY_USERNAME>"
+export CLOUDFIX_PASSWORD="<PASSWORD>"
 ```
 
 template in question does have recomendations, the user would only need to export CLOUDFIX_USERNAME and CLOUDFIX_PASSWORD as environement variables rather than performing the above steps. The linter would automatically get the reccomendations from Cloudfix using their credentials.
 
 
-### Running the linter
+### Running the Cloudfix linter CLI
 
-1. Run 
+1. Add the binary to `PATH` 
+   1. For linux, macOS, devspaces
+      ```
+      export PATH=$PATH:~/.cloudfix-linter/bin
+      ```
+   2. For Windows
+      ```
+      $Env:PATH += ";${HOME}\.cloudfix-linter\bin"
+      ```
+Note: In the following commands replce `cloudfix-linter` with `cloudfix-linter.exe` for windows
+
+2. Run
 
 ```
-cloudfix-linter init
+cloudfix-linter tf init
 
 ```
 
 to init the directory in which the linter has to be run
 
-2. Run
+3. Run
 
 ```
 terraform apply
@@ -94,7 +105,7 @@ terraform apply
 to deploy the resources
 
 
-3. Run
+4. Run
 
 ```
 cloudfix-linter tf reco
@@ -105,16 +116,40 @@ to get reccomendations on the console
 OR Run
 
 ```
-cloudfix-linter recco -j
+cloudfix-linter tf reco -j
 ```
 
-to get reccomendations in json format. 
+to get reccomendations in json format. *(This command may not prompt descriptive errors currently, try without `-j` flag if having issues)*
 
-4. For help, run
+5. For help, run
 
 ```
 cloudfix-linter
 ```
+
+### Running the [Cloudfix linter Extension](https://open-vsx.trilogy.devspaces.com/extension/devfactory/cloudfix-linter)
+
+1. Install the extension from [here](https://open-vsx.trilogy.devspaces.com/extension/devfactory/cloudfix-linter)
+2. Open the terraform "folder" in VSCode.
+3. Get command palette by `Ctrl+Shift+P` and run command `Cloudfix-linter: Init`.
+4. Select `mock-recommendations` for the demo [repo](https://github.com/trilogy-group/cloudfixLinter-demo/).
+5. Ensure that terraform can access your AWS account. You can use one of the following
+   1. Devconnect with [saml2aws](https://github.com/Versent/saml2aws)
+   2. Set the access key and the secret key inside of the provider "aws" block eg: in the main.tf file provider "aws" { region = "us-east-1" access_key = "my-access-key" secret_key = "my-secret-key" }
+   3.  Set and export AWS_ACCESS_KEY_ID , AWS_SECRET_ACCESS_KEY , AWS_SESSION_TOKEN as enviroment variables. More information on how to give access can be found [here](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+6. Run the following commands.
+   ```
+   terraform init
+   terraform apply
+   ```
+7. For `mock-recommendations`, run the following commands.
+   ```
+   terraform show -json > tf.show
+   python3 utils/gen_recco.py tf.show
+   ```
+8. Save the terraform file. Now the extension will start showing lintings for possible optimizations.
+9. For some specific recommendations you can also use Quick fix option to modify it upon hovering on the linting.
+
 
 ### Getting back to inital state after completing demo
 
@@ -133,7 +168,9 @@ b. Run
 ```
 git reset --hard HEAD
 ```
+
 This should set the state of repo to current HEAD
+
 
 c. Finally do a reload with clear cache in your IDE.
 For VSCode Steps are -
@@ -141,7 +178,10 @@ For VSCode Steps are -
   - Choose reload window with clear cache.
 
 
-
-
-
-
+1. Logs are created at `cloudfix-linter/logs` folder
+2. At times because of some version upgrade things might not work, easiest way to go about it is
+    - Delete cloudfix-linter folder
+    - Reload vscode window
+      - `ctrl+shift+p` to open command palette
+      - Select `Developer: Reload Window`
+    - This will reinstall the linter to reinitiate the process from scratch
