@@ -67,6 +67,6 @@ module "metrics" {
 }
 
 module "remote-test" {
-    source            = "git::https://github.com/yashg-ti/Test.git"
+    source            = "github.com/trilogy-group/Terraform-test-module" 
     web_instance_type = "t2.micro"
 }
